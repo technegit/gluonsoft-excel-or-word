@@ -1,0 +1,18 @@
+{
+	"name": "cronos-components",
+	"version": "1.0.0",
+	"components": [
+		{
+			"name": "crn-export-excel",
+			"text": "Export Json in Excel",
+			"class": "cpn cpn-export-excel",
+			"templateURL": "${webcontent}/components/templates/buttonExportExcel.template.html",
+			"properties": {
+				"onchange": {
+					"removable": true,
+					"type": "event"
+				}
+			}
+		}
+	]
+}
