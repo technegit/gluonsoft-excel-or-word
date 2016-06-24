@@ -28,7 +28,7 @@ app.controller('ExportWordController',
 						    	   a.style = "display: none";
 						    	   
 						    	   $http({
-						    		    url: 'api/rest/gluonsoft/dataInFile/word',
+						    		    url: 'api/rest/gluonsoft/eowexport/word',
 						    		    method: "POST",
 						    		    data: json, //this is your json data string
 						    		    headers: {'Content-type': 'application/json'},

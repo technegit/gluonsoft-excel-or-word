@@ -1,4 +1,4 @@
-package br.com.techne.gluonsoft.rest;
+package br.com.techne.gluonsoft.eowexport.rest;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -9,7 +9,7 @@ import javax.ws.rs.ApplicationPath;
  * @generated
  */
 
-@ApplicationPath("/api/rest/gluonsoft/")
+@ApplicationPath("/api/rest/gluonsoft/eowexport")
 public class RESTApplication extends ResourceConfig {
 
     /**
@@ -17,7 +17,7 @@ public class RESTApplication extends ResourceConfig {
      */
 	public RESTApplication() {
 		property("org.glassfish.jersey.server.ServerProperties.PROVIDER_SCANNING_RECURSIVE", Boolean.TRUE);
-		packages("br.com.techne.gluonsoft.rest");
+		packages("br.com.techne.gluonsoft.eowexport.rest");
 	}
 
 }

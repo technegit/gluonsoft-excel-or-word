@@ -1,4 +1,4 @@
-package br.com.techne.gluonsoft.tests;
+package br.com.techne.gluonsoft.eowexport.tests;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;

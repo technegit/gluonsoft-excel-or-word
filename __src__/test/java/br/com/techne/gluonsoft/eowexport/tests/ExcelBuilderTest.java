@@ -1,4 +1,4 @@
-package br.com.techne.gluonsoft.tests;
+package br.com.techne.gluonsoft.eowexport.tests;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 
 import org.junit.Test;
 
-import br.com.techne.gluonsoft.builder.ExcelBuilder;
+import br.com.techne.gluonsoft.eowexport.builder.ExcelBuilder;
 
 /**
  * Teste de criação de arquivo excel com tabela

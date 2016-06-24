@@ -1,4 +1,4 @@
-package br.com.techne.gluonsoft.rest;
+package br.com.techne.gluonsoft.eowexport.rest;
 
 import java.io.IOException;
  
@@ -23,15 +23,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import br.com.techne.gluonsoft.builder.ExcelBuilder;
-import br.com.techne.gluonsoft.builder.WordBuilder;
+import br.com.techne.gluonsoft.eowexport.builder.ExcelBuilder;
+import br.com.techne.gluonsoft.eowexport.builder.WordBuilder;
  
 /**
  * @brief classe rest responsavel pela criação de json em arquivos excel ou word
  * @author roberto.silva
  *
  */
-@Path("/dataInFile")
+@Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_OCTET_STREAM)
 public class DataInFileREST{

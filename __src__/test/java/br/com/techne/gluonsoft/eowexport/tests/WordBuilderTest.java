@@ -1,4 +1,4 @@
-package br.com.techne.gluonsoft.tests;
+package br.com.techne.gluonsoft.eowexport.tests;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 
 import org.junit.Test;
 
-import br.com.techne.gluonsoft.builder.WordBuilder;
+import br.com.techne.gluonsoft.eowexport.builder.WordBuilder;
 
 
 /**
