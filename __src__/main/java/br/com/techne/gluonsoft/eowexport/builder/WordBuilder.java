@@ -105,16 +105,12 @@ public abstract class WordBuilder {
       ht.setVal(BigInteger.valueOf(360));
       // get the cells in this row
       List<XWPFTableCell> cells = row.getTableCells();
-      
-      int colCt = 0;
-      int nCols = cells.size() / rows.size();//numero de colunas
-      
-      //Set<String> keys = data.keySet();
-      //String []keyAttributes = keys.toArray(new String[0]);
-      
+                  
       List<String> keysAttribs = Arrays.asList(data.keySet().toArray(new String[0]));
 	  Collections.reverse(keysAttribs);
-      
+	  
+	  int colCt = 0;//counter cells
+	  
       // add content to each cell
       for (XWPFTableCell cell : cells) {
           // get a table cell properties element (tcPr)
@@ -142,22 +138,15 @@ public abstract class WordBuilder {
           // create a run to contain the content
           XWPFRun rh = para.createRun();
           
-          // style cell as desired
-          if (colCt == nCols - 1) {
-              // last column is 10pt Courier
-              rh.setFontSize(10);
-              rh.setFontFamily("Courier");
+         
+          if(data.get(keysAttribs.get(colCt)) == null){
+        	  data.put(keysAttribs.get(colCt), "");
+          }else{
+        	  // other rows
+        	  rh.setText(data.get(keysAttribs.get(colCt)).toString());
+        	  para.setAlignment(ParagraphAlignment.LEFT);
           }
-          else {
         	  
-        	  if(data.get(keysAttribs.get(colCt)) == null)
-        		  data.put(keysAttribs.get(colCt), "");
-        	  
-              // other rows
-              rh.setText(data.get(keysAttribs.get(colCt)).toString());
-              para.setAlignment(ParagraphAlignment.LEFT);
-          }
-          
           colCt++;
       } // for cell
   }

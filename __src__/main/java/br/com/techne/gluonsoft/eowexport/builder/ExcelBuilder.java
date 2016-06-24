@@ -123,16 +123,6 @@ public abstract class ExcelBuilder {
 			sheet.setZoom(75); //75% scale
 
 			// Write the output to a file
-			/*String file = "businessplan.xls";
-		if(wb instanceof XSSFWorkbook) 
-			file += "x";
-
-		FileOutputStream out = new FileOutputStream(file);
-		wb.write(out);
-		out.close();
-
-		wb.close();*/
-
 			// write for return byte[]
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {

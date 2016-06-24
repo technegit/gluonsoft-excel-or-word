@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -36,19 +34,9 @@ import br.com.techne.gluonsoft.eowexport.builder.WordBuilder;
 @Produces(MediaType.APPLICATION_OCTET_STREAM)
 public class DataInFileREST{
 	
-	
 	private SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 	private JSONParser jsonParser = new JSONParser();
-	/**
-	 * @brief somente para teste
-	 * @return
-	 */
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response echo(){
-		return Response.ok("{\"dataInFile\":\"status ok\"}").build();
-	}
-	
+		
 	/**
 	 * @brief serviço faz parse de json em arquivo excel
 	 * json enviado deve conter:
@@ -61,8 +49,6 @@ public class DataInFileREST{
     @POST
     @Path("/excel")
     @SuppressWarnings("all")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response dataToDownloadExcelFile(String json){
     	
     	JSONObject jsonObject;
@@ -74,7 +60,6 @@ public class DataInFileREST{
     	verifyParamsOfData(jsonObject);
     	
     	String [] titles = (String[]) ((JSONArray) jsonObject.get("titles")).toArray(new String[0]);
-    	System.out.println(jsonObject.get("data").getClass());
     	List<HashMap<String, Object>> rows = ((JSONArray)jsonObject.get("data"));
     	    	
         StreamingOutput fileStream =  new StreamingOutput(){
@@ -95,56 +80,7 @@ public class DataInFileREST{
                 .ok(fileStream)
                 .header("content-disposition","attachment; filename = "+fileName)
                 .build();
-    }
-    
-    /**
-     * @brief serviço faz parse de json em arquivo excel
-	 * json enviado deve conter:
-	 * title  - array de string com titulos
-	 * data   - Map para preencher a tabela com os dados
-	 * 
-     * @param fileName
-     * @param data
-     * @return
-     */
-    @POST
-    @Path("/excel/{fileName}")
-    @SuppressWarnings("all")
-    public Response dataToDownloadExcelFileWithName(
-    		@PathParam("fileName") String fileName,
-    		String json){
-    	
-    	JSONObject jsonObject;
-		try {
-			jsonObject = (JSONObject)jsonParser.parse(json);
-		} catch (ParseException e1) {
-			throw new RuntimeException(e1);
-		}
-    	verifyParamsOfData(jsonObject);
-    	
-    	String [] titles = (String[]) ((JSONArray) jsonObject.get("titles")).toArray(new String[0]);
-    	System.out.println(jsonObject.get("data").getClass());
-    	List<HashMap<String, Object>> rows = ((JSONArray)jsonObject.get("data"));
-    	
-        StreamingOutput fileStream =  new StreamingOutput(){
-            @Override
-            public void write(java.io.OutputStream output) throws IOException, WebApplicationException{
-            	 try{
-                     byte[] data = ExcelBuilder.createExcelBytes(titles, rows);
-                     output.write(data);
-                     output.flush();
-                 }catch (Exception e){
-                     throw new WebApplicationException("File Not Found !!");
-                 }
-            }
-        };
-                
-        return Response
-                .ok(fileStream)
-                .header("content-disposition","attachment; filename = "+fileName)
-                .build();
-    }
-    
+    }  
     
     /**
 	 * @brief serviço faz parse de json em arquivo word
@@ -169,7 +105,6 @@ public class DataInFileREST{
     	verifyParamsOfData(jsonObject);
     	
     	String [] titles = (String[]) ((JSONArray) jsonObject.get("titles")).toArray(new String[0]);
-    	System.out.println(jsonObject.get("data").getClass());
     	List<HashMap<String, Object>> rows = ((JSONArray)jsonObject.get("data"));
     	
         StreamingOutput fileStream =  new StreamingOutput(){
@@ -186,54 +121,6 @@ public class DataInFileREST{
         };
         String fileName = "dataToWord_"+sdf.format(new Date())+"_.docx";
         
-        return Response
-                .ok(fileStream)
-                .header("content-disposition","attachment; filename = "+fileName)
-                .build();
-    }
-    
-    /**
-     * @brief serviço faz parse de json em arquivo word
-	 * json enviado deve conter:
-	 * title  - array de string com titulos
-	 * data   - Map para preencher a tabela com os dados
-	 * 
-     * @param fileName
-     * @param data
-     * @return
-     */
-    @POST
-    @Path("/word/{fileName}")
-    @SuppressWarnings("all")
-    public Response dataToDownloadWordFileWithName(
-    		@PathParam("fileName") String fileName,
-    		String json){
-    	
-    	JSONObject jsonObject;
-		try {
-			jsonObject = (JSONObject)jsonParser.parse(json);
-		} catch (ParseException e1) {
-			throw new RuntimeException(e1);
-		}
-    	verifyParamsOfData(jsonObject);
-    	
-    	String [] titles = (String[]) ((JSONArray) jsonObject.get("titles")).toArray(new String[0]);
-    	System.out.println(jsonObject.get("data").getClass());
-    	List<HashMap<String, Object>> rows = ((JSONArray)jsonObject.get("data"));
-    	
-        StreamingOutput fileStream =  new StreamingOutput(){
-            @Override
-            public void write(java.io.OutputStream output) throws IOException, WebApplicationException{
-            	 try{
-                     byte[] data = WordBuilder.createStyledTable(titles, rows);
-                     output.write(data);
-                     output.flush();
-                 }catch (Exception e){
-                     throw new WebApplicationException("File Not Found !!");
-                 }
-            }
-        };
-                
         return Response
                 .ok(fileStream)
                 .header("content-disposition","attachment; filename = "+fileName)
