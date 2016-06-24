@@ -19,14 +19,14 @@ Configure your pom.xml with required dependecies  are below:
     <version>3.14</version>
 </dependency>
 
-<!-- JAX-RS Jersey impl. for security context impl. -->
+<!-- JAX-RS Jersey for REST -->
 <dependency>
 	<groupId>org.glassfish.jersey.containers</groupId>
 	<artifactId>jersey-container-servlet-core</artifactId>
 	<version>2.22.1</version>
 </dependency>
 		
-<!-- lib resolve conversão de tipo java para media-type http -->
+<!-- resolve of media-type http -->
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-jackson</artifactId>
