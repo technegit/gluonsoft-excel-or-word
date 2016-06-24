@@ -1,0 +1,14 @@
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+.metadata
+.settings/
+target/
+.project
+.classpath
+.tern-project
+.externalToolBuilders/
+src/main/webapp/node_modules/
+src/main/webapp/node/
