@@ -10,5 +10,4 @@ target/
 .classpath
 .tern-project
 .externalToolBuilders/
-src/main/webapp/node_modules/
-src/main/webapp/node/
+/pom.xml
