@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -37,6 +38,17 @@ public class DataInFileREST{
 	private SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 	private JSONParser jsonParser = new JSONParser();
 		
+	/**
+	 * @brief somente para teste
+	 * @return
+	 */
+	@GET
+	@Path("/echo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response echo(){
+		return Response.ok("{\"/api/rest/gluonsoft/eowexport\":\"status ok\"}").build();
+	}
+	
 	/**
 	 * @brief serviço faz parse de json em arquivo excel
 	 * json enviado deve conter:
