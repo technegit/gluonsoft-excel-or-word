@@ -4,7 +4,6 @@ This Gluonsoft  do export of word and excel in your data, for example in data th
 
 Configure your pom.xml with required dependecies  are below: 
 
-[...]
 <!-- build files in office format -->
 <dependency>
 	<groupId>org.apache.poi</groupId>
@@ -23,14 +22,14 @@ Configure your pom.xml with required dependecies  are below:
 <dependency>
 	<groupId>org.glassfish.jersey.containers</groupId>
 	<artifactId>jersey-container-servlet-core</artifactId>
-	<version>${jersey.version}</version>
+	<version>2.22.1</version>
 </dependency>
 		
 <!-- lib resolve conversão de tipo java para media-type http -->
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-jackson</artifactId>
-    <version>${jersey.version}</version>
+    <version>2.22.1</version>
 </dependency>
 	
 <!-- json object -->
@@ -39,4 +38,4 @@ Configure your pom.xml with required dependecies  are below:
     <artifactId>json-simple</artifactId>
     <version>1.1.1</version>
 </dependency>
-[...]
+
