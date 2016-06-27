@@ -1,4 +1,4 @@
-package br.com.techne.gluonsoft.eowexport.tests;
+package test.br.com.techne.gluonsoft.eowexport;
 
 import static org.junit.Assert.*;
 
