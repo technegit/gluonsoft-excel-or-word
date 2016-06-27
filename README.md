@@ -2,7 +2,7 @@
 
 This Gluonsoft  do export of word and excel in your data, for example in data the table or anywhere type of json.
 
-Configure your pom.xml with required dependecies  are below: 
+Configure your pom.xml with required dependencies  are below: 
 
 ```
 <!-- build files in office format -->
