@@ -43,7 +43,7 @@ public class DataInFileREST{
 	 * @return
 	 */
 	@GET
-	@Path("/echo")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response echo(){
 		return Response.ok("{\"/api/rest/gluonsoft/eowexport\":\"status ok\"}").build();
