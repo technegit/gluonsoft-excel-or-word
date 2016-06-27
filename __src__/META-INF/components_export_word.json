@@ -4,8 +4,8 @@
 	"components": [
 		{
 			"name": "crn-export-word",
-			"text": "Export Json in Word",
-			"class": "cpn cpn-export-word",
+			"text": " Export Json in Word",
+			"class": "fa fa-file-word-o",
 			"templateURL": "${webcontent}/components/templates/buttonExportWord.template.html",
 			"properties": {
 				"onchange": {

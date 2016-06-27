@@ -4,8 +4,8 @@
 	"components": [
 		{
 			"name": "crn-export-excel",
-			"text": "Export Json in Excel",
-			"class": "cpn cpn-export-excel",
+			"text": " Export Json in Excel",
+			"class": "fa fa-file-excel-o",
 			"templateURL": "${webcontent}/components/templates/buttonExportExcel.template.html",
 			"properties": {
 				"onchange": {
