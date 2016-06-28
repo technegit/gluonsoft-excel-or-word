@@ -9,7 +9,7 @@ import javax.ws.rs.ApplicationPath;
  * @generated
  */
 
-@ApplicationPath("/api/rest/gluonsoft/eowexport")
+@ApplicationPath("/api/rest/gluonsoft")
 public class RESTApplication extends ResourceConfig {
 
     /**

@@ -16,6 +16,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
+import javax.ws.rs.core.Response.Status;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,7 +31,7 @@ import br.com.techne.gluonsoft.eowexport.builder.WordBuilder;
  * @author roberto.silva
  *
  */
-@Path("/")
+@Path("/eowexport")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_OCTET_STREAM)
 public class DataInFileREST{
@@ -43,7 +44,7 @@ public class DataInFileREST{
 	 * @return
 	 */
 	@GET
-	@Path("/echo")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response echo(){
 		return Response.ok("{\"/api/rest/gluonsoft/eowexport\":\"status ok\"}").build();
@@ -147,9 +148,9 @@ public class DataInFileREST{
     @SuppressWarnings("all")
     private void verifyParamsOfData(JSONObject data){
     	if(data.get("titles") == null || ((JSONArray)data.get("titles")).size() == 0)
-    		throw new WebApplicationException(Response.status(404).entity("Atributo de \"titulos\" não foram encontrados!").build());
+    		throw new WebApplicationException(Response.status(Status.BAD_REQUEST.getStatusCode()).entity("Atributo de \"titulos\" não foram encontrados!").build());
     	
     	if(data.get("data") == null || ((JSONArray)data.get("data")).size() == 0)
-    		throw new WebApplicationException(Response.status(404).entity("Atributo de \"dados\" não foram encontrados!").build());
+    		throw new WebApplicationException(Response.status(Status.BAD_REQUEST.getStatusCode()).entity("Atributo de \"dados\" não foram encontrados!").build());
     }
 }
