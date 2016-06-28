@@ -148,9 +148,9 @@ public class DataInFileREST{
     @SuppressWarnings("all")
     private void verifyParamsOfData(JSONObject data){
     	if(data.get("titles") == null || ((JSONArray)data.get("titles")).size() == 0)
-    		throw new WebApplicationException(Response.status(Status.BAD_REQUEST.getStatusCode()).entity("Atributo de \"titulos\" não foram encontrados!").build());
+    		throw new WebApplicationException(Response.status(Status.BAD_REQUEST.getStatusCode()).entity("Atributo de \"titles\" não foram encontrados!").build());
     	
     	if(data.get("data") == null || ((JSONArray)data.get("data")).size() == 0)
-    		throw new WebApplicationException(Response.status(Status.BAD_REQUEST.getStatusCode()).entity("Atributo de \"dados\" não foram encontrados!").build());
+    		throw new WebApplicationException(Response.status(Status.BAD_REQUEST.getStatusCode()).entity("Atributo de \"data\" não foram encontrados!").build());
     }
 }
