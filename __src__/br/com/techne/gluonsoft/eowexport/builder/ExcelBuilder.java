@@ -40,12 +40,20 @@ import java.io.ByteArrayOutputStream;
 public abstract class ExcelBuilder {
 
 	/**
-	 * classe cria documento Excel e devolve retorno para criação download
-	 * @param dataRows
+	 * método cria bytes de documento Excel
 	 * @param titles
+	 * @param columnIndex
+	 * @param dataRows
+	 * @param locale
+	 * @return
 	 * @throws Exception
 	 */
-	public static byte[] createExcelBytes(String[] titles, List<HashMap<String,Object>> dataRows, Locale locale) throws Exception {
+	public static byte[] createExcelBytes(	
+											String[] titles,
+											String[] columnIndex,
+											List<HashMap<String,Object>> dataRows, 
+											Locale locale) throws Exception {
+								
 		//Workbook wb = new HSSFWorkbook();
 		XSSFWorkbook  wb = new XSSFWorkbook();
 		byte [] outBytes;
@@ -98,10 +106,16 @@ public abstract class ExcelBuilder {
 				HashMap<String, Object> dataRow = dataRows.get(indexRow);
 
 				if(dataRow == null) continue;
-
-				List<String> keysAttribs = Arrays.asList(dataRow.keySet().toArray(new String[0]));
-				Collections.reverse(keysAttribs);
-
+				
+				List<String> keysAttribs=null;
+				
+				if(columnIndex.length == 0){
+					keysAttribs = Arrays.asList(dataRow.keySet().toArray(new String[0]));
+					Collections.reverse(keysAttribs);
+				}else{
+					keysAttribs = Arrays.asList(columnIndex);
+				}
+				
 				int colCt = 0;
 
 				for (String keyAttrib : keysAttribs) {

@@ -27,7 +27,7 @@ public class WordBuilderTest{
     	
     	try {
     		Locale locale=new Locale("pt", "BR");
-     		byte [] bytes = WordBuilder.createStyledTable(DataBeanStatic.TITLES, DataBeanStatic.getData(),locale);
+     		byte [] bytes = WordBuilder.createStyledTable(DataBeanStatic.TITLES, new String[0], DataBeanStatic.getData(),locale);
      		File dir=new File("testsFiles/");
 	 		dir.mkdir();
 	 		File wordFile = new File(dir,"wordFileTest.docx");

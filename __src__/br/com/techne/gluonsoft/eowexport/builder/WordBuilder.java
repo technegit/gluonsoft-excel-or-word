@@ -54,9 +54,22 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalJc;
  */
 public abstract class WordBuilder {
  
- 
- public static byte[] createStyledTable(String[] titles, List<HashMap<String,Object>> dataRows, Locale locale) throws Exception {
- 	// Create a new document from scratch
+ /**
+  * método cria bytes de documento Excel
+  * @param titles
+  * @param columnIndex
+  * @param dataRows
+  * @param locale
+  * @return
+  * @throws Exception
+  */
+ public static byte[] createStyledTable(
+		 									String[] titles, 
+		 									String [] columnIndex, 
+		 									List<HashMap<String,Object>> dataRows, 
+		 									Locale locale) throws Exception {
+						
+	 // Create a new document from scratch
      XWPFDocument doc = new XWPFDocument();
      byte[] outBytes;
      try {
@@ -81,7 +94,7 @@ public abstract class WordBuilder {
          ValueCellUtil vcutil=new ValueCellUtil(locale);
          
          for(HashMap<String, Object> dataRow : dataRows){
-        	 addRow(rows, dataRow, rowCt, vcutil);
+        	 addRow(rows, dataRow, rowCt, vcutil , columnIndex);
         	 rowCt++;
          }
                 
@@ -100,7 +113,20 @@ public abstract class WordBuilder {
      return outBytes;
   }
  
-  private static void addRow(List<XWPFTableRow> rows, HashMap<String,Object> data, int indexRow, ValueCellUtil vcutil){
+ /**
+  * adiciona linha á tabela
+  * @param rows
+  * @param data
+  * @param indexRow
+  * @param vcutil
+  * @param columnIndex
+  */
+  private static void addRow(
+		  						List<XWPFTableRow> rows, 
+		  						HashMap<String,Object> data, 
+		  						int indexRow, 
+		  						ValueCellUtil vcutil, 
+		  						String [] columnIndex){
 	  //adicionando titulo
       XWPFTableRow row = rows.get(indexRow);
       // get table row properties (trPr)
@@ -110,10 +136,17 @@ public abstract class WordBuilder {
       ht.setVal(BigInteger.valueOf(360));
       // get the cells in this row
       List<XWPFTableCell> cells = row.getTableCells();
-                  
-      List<String> keysAttribs = Arrays.asList(data.keySet().toArray(new String[0]));
-	  Collections.reverse(keysAttribs);
-	  
+           
+      List<String> keysAttribs = null;
+      if(columnIndex.length == 0){
+			keysAttribs = Arrays.asList(data.keySet().toArray(new String[0]));
+			Collections.reverse(keysAttribs);
+		}else{
+			keysAttribs = Arrays.asList(columnIndex);
+		}
+      
+      //List<String> keysAttribs = Arrays.asList(data.keySet().toArray(new String[0]));
+	  //Collections.reverse(keysAttribs);
 	  int colCt = 0;//counter cells
 	  
       // add content to each cell
@@ -156,6 +189,11 @@ public abstract class WordBuilder {
       } // for cell
   }
   
+  /**
+   * adiciona titulo
+   * @param rows
+   * @param titles
+   */
   private static void addTitle(List<XWPFTableRow> rows, String[] titles){
 	  //adicionando titulo
       XWPFTableRow row = rows.get(0);

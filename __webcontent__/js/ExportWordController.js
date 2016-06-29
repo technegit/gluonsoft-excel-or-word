@@ -2,7 +2,6 @@ app.controller('ExportWordController',
     							['$scope', '$rootScope', '$timeout', '$translate', 'Notification', '$sce','$http',
                         function($scope, $rootScope, $timeout, $translate, Notification, $sce, $http) {
         
-						       
 						       /**
 						        * export json in word file
 						        */
@@ -10,8 +9,12 @@ app.controller('ExportWordController',
 						    	   
 						    	   var titles = JSON.parse(event.srcElement.attributes.eowtitles.value);
 							       var data = JSON.parse(event.srcElement.attributes.eowdatasourcedata.value);
-							       var columnIndex = JSON.parse(event.srcElement.attributes.eowcolumnindex.value);
 							       var fileName = event.srcElement.attributes.eowfilename.value;
+							       
+							       var columnIndex = null;
+							       
+							       if(event.srcElement.attributes.eowcolumnindex.value.length > 0)
+							    	   columnIndex = JSON.parse(event.srcElement.attributes.eowcolumnindex.value);					      
 							    	  
 						    	   var json = JSON.stringify(
 										   { "titles" : titles , "columnIndex": columnIndex ,"data": data } , 
@@ -20,7 +23,7 @@ app.controller('ExportWordController',
 								    		        return undefined;
 								    		    } 
 								    		    return value;
-										   });
+								   });
 						    	   
 						    	   if(fileName == undefined || fileName == null || fileName.length == 0){
 						    		   fileName = 'dataWord_'+Date.now()+'_.docx';

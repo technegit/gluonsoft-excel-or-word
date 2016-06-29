@@ -24,7 +24,7 @@ public class ExcelBuilderTest {
     public void runTest(){
 		try {	
 			Locale locale=new Locale("pt", "BR");
-	 		byte [] bytes =ExcelBuilder.createExcelBytes(DataBeanStatic.TITLES, DataBeanStatic.getData(), locale);
+	 		byte [] bytes =ExcelBuilder.createExcelBytes(DataBeanStatic.TITLES, new String[0] , DataBeanStatic.getData(), locale);
 	 		File dir=new File("testsFiles/");
 	 		dir.mkdir();
 	 		File excelFile = new File(dir,"excelFileTest.xlsx");

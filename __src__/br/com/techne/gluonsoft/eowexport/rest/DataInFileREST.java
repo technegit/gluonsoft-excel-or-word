@@ -77,13 +77,18 @@ public class DataInFileREST{
     	verifyParamsOfData(jsonObject);
     	
     	String [] titles = (String[]) ((JSONArray) jsonObject.get("titles")).toArray(new String[0]);
+    	
+    	if(jsonObject.get("columnIndex") == null)
+    		jsonObject.put("columnIndex", new JSONArray());
+    	
+    	String [] columnIndex = (String[]) ((JSONArray) jsonObject.get("columnIndex")).toArray(new String[0]);
     	List<HashMap<String, Object>> rows = ((JSONArray)jsonObject.get("data"));
-    	    	
+    	
         StreamingOutput fileStream =  new StreamingOutput(){
             @Override
             public void write(java.io.OutputStream output) throws IOException, WebApplicationException{
                 try{
-                    byte[] data = ExcelBuilder.createExcelBytes(titles, rows, request.getLocale());
+                    byte[] data = ExcelBuilder.createExcelBytes(titles, columnIndex, rows, request.getLocale());
                     output.write(data);
                     output.flush();
                 }catch (Exception e){
@@ -122,13 +127,18 @@ public class DataInFileREST{
     	verifyParamsOfData(jsonObject);
     	
     	String [] titles = (String[]) ((JSONArray) jsonObject.get("titles")).toArray(new String[0]);
-    	List<HashMap<String, Object>> rows = ((JSONArray)jsonObject.get("data"));
     	
+    	if(jsonObject.get("columnIndex") == null)
+    		jsonObject.put("columnIndex", new JSONArray());
+    	
+    	String [] columnIndex = (String[]) ((JSONArray) jsonObject.get("columnIndex")).toArray(new String[0]);
+    	List<HashMap<String, Object>> rows = ((JSONArray)jsonObject.get("data"));
+    	    	
         StreamingOutput fileStream =  new StreamingOutput(){
             @Override
             public void write(java.io.OutputStream output) throws IOException, WebApplicationException{
                 try{
-                    byte[] data = WordBuilder.createStyledTable(titles, rows, request.getLocale());
+                    byte[] data = WordBuilder.createStyledTable(titles, columnIndex, rows, request.getLocale());
                     output.write(data);
                     output.flush();
                 }catch (Exception e){

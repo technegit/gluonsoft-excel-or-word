@@ -11,14 +11,18 @@ app.controller('ExportExcelController',
 						    	  var data = JSON.parse(event.srcElement.attributes.eowdatasourcedata.value);
 						    	  var fileName = event.srcElement.attributes.eowfilename.value;
 						    	   
-						    	   var json = 
-						    		   JSON.stringify(
-						    				   { "titles" : titles , "data": data } , 
-						    				   function( key, value ) {
-									    		    if( key === "$$hashKey" ) {
-									    		        return undefined;
-									    		    }
-									    		    return value;
+						    	  var columnIndex = null;
+							       
+							       if(event.srcElement.attributes.eowcolumnindex.value.length > 0)
+							    	   columnIndex = JSON.parse(event.srcElement.attributes.eowcolumnindex.value);
+						    	  
+						    	   var json = JSON.stringify(
+					    				   { "titles" : titles , "columnIndex": columnIndex , "data": data} , 
+					    				   function( key, value ) {
+								    		    if( key === "$$hashKey" ) {
+								    		        return undefined;
+								    		    }
+								    		    return value;
 						    		});
 						    	   
 						    	   if(fileName == undefined || fileName == null || fileName.length == 0){
