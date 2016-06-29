@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -21,8 +22,9 @@ public class ExcelBuilderTest {
      */
 	@Test
     public void runTest(){
-		try {	 		
-	 		byte [] bytes =ExcelBuilder.createExcelBytes(DataBeanStatic.TITLES, DataBeanStatic.getData());
+		try {	
+			Locale locale=new Locale("pt", "BR");
+	 		byte [] bytes =ExcelBuilder.createExcelBytes(DataBeanStatic.TITLES, DataBeanStatic.getData(), locale);
 	 		File dir=new File("testsFiles/");
 	 		dir.mkdir();
 	 		File excelFile = new File(dir,"excelFileTest.xlsx");

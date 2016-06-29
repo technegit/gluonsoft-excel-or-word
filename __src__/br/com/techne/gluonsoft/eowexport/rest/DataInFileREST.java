@@ -7,12 +7,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
@@ -38,7 +40,9 @@ public class DataInFileREST{
 	
 	private SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 	private JSONParser jsonParser = new JSONParser();
-		
+	
+	@Context
+	private HttpServletRequest request;
 	/**
 	 * @brief somente para teste
 	 * @return
@@ -79,7 +83,7 @@ public class DataInFileREST{
             @Override
             public void write(java.io.OutputStream output) throws IOException, WebApplicationException{
                 try{
-                    byte[] data = ExcelBuilder.createExcelBytes(titles, rows);
+                    byte[] data = ExcelBuilder.createExcelBytes(titles, rows, request.getLocale());
                     output.write(data);
                     output.flush();
                 }catch (Exception e){
@@ -124,7 +128,7 @@ public class DataInFileREST{
             @Override
             public void write(java.io.OutputStream output) throws IOException, WebApplicationException{
                 try{
-                    byte[] data = WordBuilder.createStyledTable(titles, rows);
+                    byte[] data = WordBuilder.createStyledTable(titles, rows, request.getLocale());
                     output.write(data);
                     output.flush();
                 }catch (Exception e){

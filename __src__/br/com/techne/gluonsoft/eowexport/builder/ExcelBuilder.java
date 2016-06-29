@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Locale;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 
@@ -44,7 +45,7 @@ public abstract class ExcelBuilder {
 	 * @param titles
 	 * @throws Exception
 	 */
-	public static byte[] createExcelBytes(String[] titles, List<HashMap<String,Object>> dataRows) throws Exception {
+	public static byte[] createExcelBytes(String[] titles, List<HashMap<String,Object>> dataRows, Locale locale) throws Exception {
 		//Workbook wb = new HSSFWorkbook();
 		XSSFWorkbook  wb = new XSSFWorkbook();
 		byte [] outBytes;
@@ -73,6 +74,12 @@ public abstract class ExcelBuilder {
 			for (int indexColumn = 0; indexColumn < titles.length; indexColumn++) {
 				Cell cell = headerRow.createCell(indexColumn);
 				cell.setCellValue(titles[indexColumn]);
+				
+				 if((titles.length - 1) < indexColumn){
+					 cell.setCellValue("");
+		          }else
+		        	  cell.setCellValue(titles[indexColumn]);
+				
 				cell.setCellStyle(styles.get("header"));
 			}
 
@@ -82,6 +89,8 @@ public abstract class ExcelBuilder {
 			Row row;
 			Cell cell;
 			int rownum = 1;//devido constar titulo, começa do indice 1
+			
+			ValueCellUtil vcutil=new ValueCellUtil(locale);
 			
 			for (int indexRow = 0; indexRow < dataRows.size(); indexRow++, rownum++) {
 
@@ -99,7 +108,7 @@ public abstract class ExcelBuilder {
 
 					cell = row.createCell(colCt);
 					String styleName;
-					cell.setCellValue(dataRow.get(keyAttrib).toString());
+					cell.setCellValue(vcutil.parseValue(dataRow.get(keyAttrib)).toString());
 
 					//zebrando tabela
 					if (indexRow % 2 == 0) {

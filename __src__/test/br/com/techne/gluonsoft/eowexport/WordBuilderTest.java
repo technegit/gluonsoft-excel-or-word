@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -25,7 +26,8 @@ public class WordBuilderTest{
     public void runTest(){
     	
     	try {
-     		byte [] bytes = WordBuilder.createStyledTable(DataBeanStatic.TITLES, DataBeanStatic.getData());
+    		Locale locale=new Locale("pt", "BR");
+     		byte [] bytes = WordBuilder.createStyledTable(DataBeanStatic.TITLES, DataBeanStatic.getData(),locale);
      		File dir=new File("testsFiles/");
 	 		dir.mkdir();
 	 		File wordFile = new File(dir,"wordFileTest.docx");

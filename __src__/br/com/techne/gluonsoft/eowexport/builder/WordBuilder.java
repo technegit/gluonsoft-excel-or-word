@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -35,10 +36,12 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTHeight;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTShd;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTString;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblPr;
+//import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblWidth;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTcPr;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTrPr;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTVerticalJc;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STShd;
+//import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalJc;
 
 /**
@@ -52,13 +55,13 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalJc;
 public abstract class WordBuilder {
  
  
- public static byte[] createStyledTable(String[] titles, List<HashMap<String,Object>> dataRows) throws Exception {
+ public static byte[] createStyledTable(String[] titles, List<HashMap<String,Object>> dataRows, Locale locale) throws Exception {
  	// Create a new document from scratch
      XWPFDocument doc = new XWPFDocument();
      byte[] outBytes;
      try {
          int nRows = dataRows.size()+1;
-         int nCols = titles.length;
+         int nCols = dataRows.get(0).keySet().size();
                   
          XWPFTable table = doc.createTable(nRows, nCols);
 
@@ -74,9 +77,11 @@ public abstract class WordBuilder {
          int rowCt = 1;
          
          addTitle(rows, titles);
+        
+         ValueCellUtil vcutil=new ValueCellUtil(locale);
          
          for(HashMap<String, Object> dataRow : dataRows){
-        	 addRow(rows, dataRow, rowCt);
+        	 addRow(rows, dataRow, rowCt, vcutil);
         	 rowCt++;
          }
                 
@@ -95,7 +100,7 @@ public abstract class WordBuilder {
      return outBytes;
   }
  
-  private static void addRow(List<XWPFTableRow> rows, HashMap<String,Object> data, int indexRow){
+  private static void addRow(List<XWPFTableRow> rows, HashMap<String,Object> data, int indexRow, ValueCellUtil vcutil){
 	  //adicionando titulo
       XWPFTableRow row = rows.get(indexRow);
       // get table row properties (trPr)
@@ -143,7 +148,7 @@ public abstract class WordBuilder {
         	  data.put(keysAttribs.get(colCt), "");
           }else{
         	  // other rows
-        	  rh.setText(data.get(keysAttribs.get(colCt)).toString());
+        	  rh.setText(vcutil.parseValue(data.get(keysAttribs.get(colCt))).toString());
         	  para.setAlignment(ParagraphAlignment.LEFT);
           }
         	  
@@ -163,14 +168,20 @@ public abstract class WordBuilder {
       List<XWPFTableCell> cells = row.getTableCells(); 
       int colCt = 0;
      
+      //CTTblWidth tblWidth = CTTblWidth.Factory.newInstance();
+      //tblWidth.setW(BigInteger.valueOf(200));
+      //tblWidth.setType(STTblWidth.DXA);
+      
       // add content to each cell
       for (XWPFTableCell cell : cells) {
           // get a table cell properties element (tcPr)
           CTTcPr tcpr = cell.getCTTc().addNewTcPr();
+          //tcpr.setTcW(tblWidth);
+          
           // set vertical alignment to "center"
           CTVerticalJc va = tcpr.addNewVAlign();
           va.setVal(STVerticalJc.CENTER);
-
+          
           // create cell color element
           CTShd ctshd = tcpr.addNewShd();
           ctshd.setColor("auto");
@@ -181,8 +192,13 @@ public abstract class WordBuilder {
           XWPFParagraph para = cell.getParagraphs().get(0);
           // create a run to contain the content
           XWPFRun rh = para.createRun();
+          
           // header row
-          rh.setText(titles[colCt]);
+          if((titles.length - 1) < colCt){
+        	  rh.setText("");
+          }else
+        	  rh.setText(titles[colCt]);
+          
           rh.setBold(true);
           para.setAlignment(ParagraphAlignment.CENTER);
           
