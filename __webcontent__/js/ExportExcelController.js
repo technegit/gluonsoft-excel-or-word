@@ -5,7 +5,12 @@ app.controller('ExportExcelController',
 						       /**
 						        * export json in excel file
 						        */
-						       $scope.exportInExcel = function(titles, data, fileName){
+						       $scope.exportInExcel = function(){
+						    	   
+						    	  var titles = JSON.parse(event.srcElement.attributes.eowtitles.value);
+						    	  var data = JSON.parse(event.srcElement.attributes.eowdatasourcedata.value);
+						    	  var fileName = event.srcElement.attributes.eowfilename.value;
+						    	   
 						    	   var json = 
 						    		   JSON.stringify(
 						    				   { "titles" : titles , "data": data } , 
@@ -13,15 +18,10 @@ app.controller('ExportExcelController',
 									    		    if( key === "$$hashKey" ) {
 									    		        return undefined;
 									    		    }
-									    		    else if(key == 'ativo'){
-									    		    	return value ? 'Sim' : 'Não';
-									    		    }
-									    		    
-									    		    
 									    		    return value;
 						    		});
 						    	   
-						    	   if(fileName == undefined || fileName == null){
+						    	   if(fileName == undefined || fileName == null || fileName.length == 0){
 						    		   fileName = 'dataExcel_'+Date.now()+'_.xlsx';
 						    	   } 
 						    	   
@@ -45,9 +45,7 @@ app.controller('ExportExcelController',
 						    	        window.URL.revokeObjectURL(url);
 						    		}).error(function (data, status, headers, config) {});
 						           
-						       };
-						       
-						       
+						       }; 
     					}
-]);  
+	]);	
 

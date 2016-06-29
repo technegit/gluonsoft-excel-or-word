@@ -6,20 +6,23 @@ app.controller('ExportWordController',
 						       /**
 						        * export json in word file
 						        */
-						       $scope.exportInWord = function(titles, data, fileName){
+						       $scope.exportInWord = function(){
+						    	   
+						    	   var titles = JSON.parse(event.srcElement.attributes.eowtitles.value);
+							       var data = JSON.parse(event.srcElement.attributes.eowdatasourcedata.value);
+							       var columnIndex = JSON.parse(event.srcElement.attributes.eowcolumnindex.value);
+							       var fileName = event.srcElement.attributes.eowfilename.value;
+							    	  
 						    	   var json = JSON.stringify(
-										   { "titles" : titles , "data": data } , 
+										   { "titles" : titles , "columnIndex": columnIndex ,"data": data } , 
 										   function( key, value ) {
 								    		    if( key === "$$hashKey" ) {
 								    		        return undefined;
 								    		    } 
-								    		    else if(key == 'ativo'){
-								    		    	return value ? 'Sim' : 'Não';
-								    		    }
 								    		    return value;
 										   });
 						    	   
-						    	   if(fileName == undefined || fileName == null){
+						    	   if(fileName == undefined || fileName == null || fileName.length == 0){
 						    		   fileName = 'dataWord_'+Date.now()+'_.docx';
 						    	   } 
 						    	   
