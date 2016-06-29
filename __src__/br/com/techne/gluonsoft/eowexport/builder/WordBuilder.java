@@ -74,7 +74,7 @@ public abstract class WordBuilder {
      byte[] outBytes;
      try {
          int nRows = dataRows.size()+1;
-         int nCols = dataRows.get(0).keySet().size();
+         int nCols = columnIndex.length == 0 ? dataRows.get(0).keySet().size() : columnIndex.length;
                   
          XWPFTable table = doc.createTable(nRows, nCols);
 
