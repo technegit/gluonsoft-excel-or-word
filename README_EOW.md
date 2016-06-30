@@ -9,7 +9,9 @@ This Gluonsoft  do export of word and excel with data, for example in data the t
 The use will be via rest api, after add the button will be a javascript method that is responsible for calling api rest.
 Just enter the data correctly to send to rest api.
 
-For execute this function is necessary attributes "eowtitles" and "eowdatasourcedata".
+For execute this function is necessary attributes:
+- eowtitles = title of table is array with alias;
+- eowdatasourcedata = datasource.data "json array";
 
 ```
 <!-- 
