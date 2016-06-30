@@ -13,7 +13,8 @@ For execute this function requires at least attributes in below:
 - eowtitles = title of table is array with alias;
 - eowdatasourcedata = datasource.data "json array";
 
-If you do not enter the field "eowfilename" it will automatically generate a name for the file.
+If you do not enter the field "eowfilename" it will automatically generate a name for the file
+and the without attribute "eowcolumnindex" will the natural order of the attributes of json.
 
 ####Example:
 ```
