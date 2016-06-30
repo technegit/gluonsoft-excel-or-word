@@ -1,7 +1,7 @@
 # gluonsoft-excel-or-word-export
 
 #Introduction
-This gluonsoft is license of use APACHE 2.0, using library Apache POI for build this files word and excel and use Jersey REST 2.2.1 for Web Service REST.
+This gluonsoft is license of use APACHE 2.0, using library Apache POI for build this files word/excel and Jersey REST 2.2.1 for Web Service REST.
 
 This Gluonsoft  do export of word and excel with data, for example in data the table or anywhere type of json.
 
