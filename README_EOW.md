@@ -13,6 +13,8 @@ For execute this function requires at least attributes in below:
 - eowtitles = title of table is array with alias;
 - eowdatasourcedata = datasource.data "json array";
 
+If you do not enter the field "eowfilename" it will automatically generate a name for the file.
+
 ####Example:
 ```
 <!-- 
@@ -26,7 +28,7 @@ For execute this function requires at least attributes in below:
               eowtitles="{{['ID:','Name:','Description:','Active:','Registrarion.Date:']}}"
               eowdatasourcedata="{{datasource.data}}"
               eowcolumnindex = "{{['id','name','desc','active','dtInit']}}"
-              eowfilename="">
+              eowfilename="ExcelData.xlsx">
               Excel
 </button>
 
