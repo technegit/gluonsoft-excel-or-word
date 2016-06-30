@@ -13,6 +13,7 @@ For execute this function is necessary attributes:
 - eowtitles = title of table is array with alias;
 - eowdatasourcedata = datasource.data "json array";
 
+####Example:
 ```
 <!-- 
     eowtitles = title of table is array with alias
@@ -22,9 +23,9 @@ For execute this function is necessary attributes:
  -->
 <button class="btn btn-success fa fa-file-excel-o"
               ng-click="exportInExcel()"
-              eowtitles="{{['Enter your titles']}}"
+              eowtitles="{{['ID:','Name:','Description:','Active:','Registrarion.Date:']}}"
               eowdatasourcedata="{{datasource.data}}"
-              eowcolumnindex = ""
+              eowcolumnindex = "{{['id','name','desc','active','dtInit']}}"
               eowfilename="">
               Excel
 </button>
