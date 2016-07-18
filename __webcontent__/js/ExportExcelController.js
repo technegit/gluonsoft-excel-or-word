@@ -27,6 +27,8 @@ app.controller('ExportExcelController',
 						    	   
 						    	   if(fileName == undefined || fileName == null || fileName.length == 0){
 						    		   fileName = 'dataExcel_'+Date.now()+'_.xlsx';
+						    	   }else{
+						    	   	fileName = fileName+'.xlsx';
 						    	   } 
 						    	   
 						    	   var a = document.createElement("a");
