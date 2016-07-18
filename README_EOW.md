@@ -22,14 +22,14 @@ and the without attribute "eowcolumnindex" will the natural order of the attribu
     eowtitles = title of table is array with alias
     eowdatasourcedata= datasource.data "json array"
     eowcolumnindex = index of column is array with keys
-    eowfilename= file name 
+    eowfilename= file name without extension
  -->
 <button class="btn btn-success fa fa-file-excel-o"
               ng-click="exportInExcel()"
               eowtitles="{{['ID:','Name:','Description:','Active:','Registrarion.Date:']}}"
               eowdatasourcedata="{{datasource.data}}"
               eowcolumnindex = "{{['id','name','desc','active','dtInit']}}"
-              eowfilename="ExcelData.xlsx">
+              eowfilename="FileNameExcel">
               Excel
 </button>
 
