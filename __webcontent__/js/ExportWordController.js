@@ -27,6 +27,8 @@ app.controller('ExportWordController',
 						    	   
 						    	   if(fileName == undefined || fileName == null || fileName.length == 0){
 						    		   fileName = 'dataWord_'+Date.now()+'_.docx';
+						    	   }else{
+						    	   	fileName = fileName+'.docx';
 						    	   } 
 						    	   
 						    	   var a = document.createElement("a");
